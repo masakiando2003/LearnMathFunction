@@ -58,6 +58,7 @@
             </div>
             <input type="hidden" id="contentSeparatorIndex" value="1" />
             <input type="hidden" id="totalTitleCount" />
+            <input type="hidden" id="totalContentCount" />
             <input type="hidden" id="current_content_index" name="current_content_index" />
             <input type="hidden" id="current_title_index" name="current_title_index"  />
             <input type="hidden" id="previous_content_index" name="previous_content_index" />
@@ -73,17 +74,44 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript">
             function OnPreviousButtonClicked(){
-                var contentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value);
-                var contentSeparatorArr = document.getElementById('contentSeparator'+contentSeparatorIndex).value.split(", ", 2);
+                var prevContentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value) - 1;
+                var contentSeparatorArr = document.getElementById('contentSeparator'+prevContentSeparatorIndex).value.split(", ", 2);
+                var prevContentSeparatorArr;
+                if(prevContentSeparatorIndex > 1){
+                    prevContentSeparatorArr = document.getElementById('contentSeparator'+(prevContentSeparatorIndex-1)).value.split(", ", 2);
+                }
+                else {
+                    prevContentSeparatorArr = document.getElementById('contentSeparator1').value.split(", ", 2);
+                }
                 var totalTitleCount = parseInt(document.getElementById('totalTitleCount').value);
 
-                if(contentSeparatorIndex > 1){
+                if(prevContentSeparatorIndex >= 1){
 
-                    if(contentSeparatorIndex < titleCount){
+                    if(prevContentSeparatorIndex < totalTitleCount){
                         document.getElementById('btnNext').style.visibility = 'visible';
                     }
 
-                    document.getElementById('btnPrevious').style.visibility = 'visible';
+                    if(prevContentSeparatorIndex > 1){
+                        document.getElementById('btnPrevious').style.visibility = 'visible';
+                    } else {
+                        document.getElementById('btnPrevious').style.visibility = 'hidden';
+                    }
+
+                    var firstItemIndex = parseInt(document.getElementById('previous_content_index').value) + 1;
+                    var lastItemIndex =  (parseInt(document.getElementById('current_title_index').value) >= totalTitleCount)
+                                         ? totalTitleCount
+                                         : parseInt(document.getElementById('current_content_index').value);
+
+                    for(var i = firstItemIndex; i <= lastItemIndex; i++) {
+                        $("#content"+i).css('display', 'none');
+                    }
+
+                    document.getElementById('content_index').value = (parseInt(document.getElementById('previous_title_index').value) <= 1)
+                                                                     ? 1
+                                                                     : (parseInt(prevContentSeparatorArr[1]) + 1);
+                    document.getElementById('ori_content_index').value = (parseInt(document.getElementById('previous_title_index').value) <= 1)
+                                                                     ? 1
+                                                                     : (parseInt(prevContentSeparatorArr[1]) + 1);
 
                     document.getElementById('next_title_index').value = parseInt(document.getElementById('current_title_index').value);
                     document.getElementById('next_content_index').value = parseInt(document.getElementById('current_content_index').value);
@@ -91,14 +119,15 @@
                     document.getElementById('current_title_index').value = parseInt(document.getElementById('previous_title_index').value);
                     document.getElementById('current_content_index').value = parseInt(document.getElementById('previous_content_index').value);
 
-                    document.getElementById('previous_title_index').value = parseInt(contentSeparatorArr[0]);
-                    document.getElementById('previous_content_index').value = parseInt(contentSeparatorArr[1]);
+                    document.getElementById('previous_title_index').value = parseInt(prevContentSeparatorArr[0]);
+                    document.getElementById('previous_content_index').value = parseInt(prevContentSeparatorArr[1]);
 
                     contentSeparatorIndex--;
 
                     var current_title_index = parseInt(document.getElementById('current_title_index').value);
 
                     document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).value;
+                    document.getElementById('contentSeparatorIndex').value = prevContentSeparatorIndex;
                 }
                 else {
                     document.getElementById('btnPrevious').style.visibility = 'hidden';
@@ -106,17 +135,41 @@
             }
 
             function OnNextButtonClicked(){
-                var contentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value);
-                var contentSeparatorArr = document.getElementById('contentSeparator'+contentSeparatorIndex).value.split(", ", 2);
                 var totalTitleCount = parseInt(document.getElementById('totalTitleCount').value);
+                var nextContentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value) + 1;
+                var contentSeparatorArr = document.getElementById('contentSeparator'+nextContentSeparatorIndex).value.split(", ", 2);
+                var nextContentSeparatorArr;
+                if(nextContentSeparatorIndex < totalTitleCount) {
+                   nextContentSeparatorArr = document.getElementById('contentSeparator'+(nextContentSeparatorIndex+1)).value.split(", ", 2);
+                }
+                else {
+                   nextContentSeparatorArr = document.getElementById('contentSeparator'+totalTitleCount).value.split(", ", 2);
+                }
 
-                if(contentSeparatorIndex < totalTitleCount){
+                if(nextContentSeparatorIndex <= totalTitleCount){
 
-                    if(contentSeparatorIndex > 1){
+                    if(nextContentSeparatorIndex > 1){
                         document.getElementById('btnPrevious').style.visibility = 'visible';
                     }
 
-                    document.getElementById('btnNext').style.visibility = 'visible';
+                    if(nextContentSeparatorIndex < totalTitleCount){
+                        document.getElementById('btnNext').style.visibility = 'visible';
+                    } else {
+                        document.getElementById('btnNext').style.visibility = 'hidden';
+                    }
+
+                    var totalContentCount = parseInt(document.getElementById('totalContentCount').value);
+                    var firstItemIndex = (parseInt(document.getElementById('current_title_index').value) == 1)
+                                        ? 1
+                                        : parseInt(document.getElementById('previous_content_index').value) + 1;
+                    var lastItemIndex = parseInt(document.getElementById('current_content_index').value);
+
+                    for(var i = firstItemIndex; i <= lastItemIndex; i++) {
+                        $("#content"+i).css('display', 'none');
+                    }
+
+                    document.getElementById('content_index').value = parseInt(document.getElementById('current_content_index').value) + 1;
+                    document.getElementById('ori_content_index').value = parseInt(document.getElementById('current_content_index').value) + 1;
 
                     document.getElementById('previous_title_index').value = parseInt(document.getElementById('current_title_index').value);
                     document.getElementById('previous_content_index').value = parseInt(document.getElementById('current_content_index').value);
@@ -124,14 +177,13 @@
                     document.getElementById('current_title_index').value = parseInt(document.getElementById('next_title_index').value);
                     document.getElementById('current_content_index').value = parseInt(document.getElementById('next_content_index').value);
 
-                    document.getElementById('next_title_index').value = parseInt(contentSeparatorArr[0]);
-                    document.getElementById('next_content_index').value = parseInt(contentSeparatorArr[1]);
-
-                    contentSeparatorIndex++;
+                    document.getElementById('next_title_index').value = parseInt(nextContentSeparatorArr[0]);
+                    document.getElementById('next_content_index').value = parseInt(nextContentSeparatorArr[1]);
 
                     var current_title_index = parseInt(document.getElementById('current_title_index').value);
 
                     document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).value;
+                    document.getElementById('contentSeparatorIndex').value = nextContentSeparatorIndex;
                 }
                 else {
                     document.getElementById('btnNext').style.visibility = 'hidden';

@@ -10,9 +10,9 @@
 
 ＃周期関数の定義２
 
-$f\left(x\right)$が基本周期$ 2\pi$の周期関数である
+`f(x)`が基本周期`2pi`の周期関数である
 
-$f\left(x+2\pi n\right)=f\left(x\right)\ \ \ n\in \mathbb{Z}$（$n$は整数）
+`f (x + 2pin) = f (x) n in ZZ (n`は整数）
 
 
 

@@ -125,13 +125,14 @@ var app = {
                 document.getElementById('next_title_index').value = next_index_arr[0];
                 document.getElementById('next_content_index').value = next_index_arr[1];
 
-                document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title5').value;
+                document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title1').value;
                 document.getElementById('content_index').value = 1;
                 document.getElementById('ori_content_index').value = 1;
 
                 document.getElementById('btnPrevious').style.visibility = 'hidden';
 
-                document.getElementById('totalTitleCount').value = titleIndex;
+                document.getElementById('totalTitleCount').value = titleIndex - 1;
+                document.getElementById('totalContentCount').value = contentIndex - 1;
      		}
 
      		reader.readAsText(file);
