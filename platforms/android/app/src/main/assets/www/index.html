@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html lang="jp">
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <!--reference bootstrap.min.css file here -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <title>Hello World</title>
+    </head>
+    <body >
+        <div class="app" id="mathFunctionContainer">
+            <h1 id="mathFunctionTitle" style="width: 300px;"></h1>
+            <div id="mathFunctionContent"></div>
+            <div class="row">&nbsp;</div>
+            <div class="buttons">
+                <div class="row">
+                    <div class="col-sm-2 offset-sm-1">
+                        <button class="btn btn-primary" id="btnPrevious" onclick="OnPreviousButtonClicked(); return false;">前へ</button>&nbsp;
+                        <button class="btn btn-primary" id="btnContinue" onclick="showMathContent(); return false;">続く</button>&nbsp;
+                        <button class="btn btn-primary" id="btnNext" onclick="OnNextButtonClicked(); return false;">次へ</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 offset">&nbsp;</div>
+                    <div class="col-sm-2"><button class="btn btn-primary" id="btnReset" onclick="HideMathContent(); return false;">やり直す</button></div>
+                    <div class="col-sm-2">&nbsp;</div>
+                </div>
+            </div>
+            <input type="hidden" id="contentSeparatorIndex" value="1" />
+            <input type="hidden" id="totalTitleCount" />
+            <input type="hidden" id="current_content_index" name="current_content_index" />
+            <input type="hidden" id="current_title_index" name="current_title_index"  />
+            <input type="hidden" id="previous_content_index" name="previous_content_index" />
+            <input type="hidden" id="previous_title_index" name="previous_title_index" />
+            <input type="hidden" id="next_content_index" name="next_content_index" />
+            <input type="hidden" id="next_title_index" name="next_title_index" />
+            <input type="hidden" id="content_index" name="content_index" />
+            <input type="hidden" id="ori_content_index" name="ori_content_index" />
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function OnPreviousButtonClicked(){
+                var contentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value);
+                var contentSeparatorArr = document.getElementById('contentSeparator'+contentSeparatorIndex).value.split(", ", 2);
+                var totalTitleCount = parseInt(document.getElementById('totalTitleCount').value);
+
+                if(contentSeparatorIndex > 1){
+
+                    if(contentSeparatorIndex < titleCount){
+                        document.getElementById('btnNext').style.visibility = 'visible';
+                    }
+
+                    document.getElementById('btnPrevious').style.visibility = 'visible';
+
+                    document.getElementById('next_title_index').value = parseInt(document.getElementById('current_title_index').value);
+                    document.getElementById('next_content_index').value = parseInt(document.getElementById('current_content_index').value);
+
+                    document.getElementById('current_title_index').value = parseInt(document.getElementById('previous_title_index').value);
+                    document.getElementById('current_content_index').value = parseInt(document.getElementById('previous_content_index').value);
+
+                    document.getElementById('previous_title_index').value = parseInt(contentSeparatorArr[0]);
+                    document.getElementById('previous_content_index').value = parseInt(contentSeparatorArr[1]);
+
+                    contentSeparatorIndex--;
+
+                    var current_title_index = parseInt(document.getElementById('current_title_index').value);
+
+                    document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).value;
+                }
+                else {
+                    document.getElementById('btnPrevious').style.visibility = 'hidden';
+                }
+            }
+
+            function OnNextButtonClicked(){
+                var contentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value);
+                var contentSeparatorArr = document.getElementById('contentSeparator'+contentSeparatorIndex).value.split(", ", 2);
+                var totalTitleCount = parseInt(document.getElementById('totalTitleCount').value);
+
+                if(contentSeparatorIndex < totalTitleCount){
+
+                    if(contentSeparatorIndex > 1){
+                        document.getElementById('btnPrevious').style.visibility = 'visible';
+                    }
+
+                    document.getElementById('btnNext').style.visibility = 'visible';
+
+                    document.getElementById('previous_title_index').value = parseInt(document.getElementById('current_title_index').value);
+                    document.getElementById('previous_content_index').value = parseInt(document.getElementById('current_content_index').value);
+
+                    document.getElementById('current_title_index').value = parseInt(document.getElementById('next_title_index').value);
+                    document.getElementById('current_content_index').value = parseInt(document.getElementById('next_content_index').value);
+
+                    document.getElementById('next_title_index').value = parseInt(contentSeparatorArr[0]);
+                    document.getElementById('next_content_index').value = parseInt(contentSeparatorArr[1]);
+
+                    contentSeparatorIndex++;
+
+                    var current_title_index = parseInt(document.getElementById('current_title_index').value);
+
+                    document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).value;
+                }
+                else {
+                    document.getElementById('btnNext').style.visibility = 'hidden';
+                }
+            }
+
+            function showMathContent() {
+                var content_index = parseInt(document.getElementById('content_index').value);
+                var current_content_index = parseInt(document.getElementById('current_content_index').value);
+
+                if(content_index <= current_content_index){
+                    $("#content"+content_index).fadeIn();
+                    document.getElementById('content_index').value++;
+                }
+            }
+
+            function HideMathContent(){
+                var ori_content_index = parseInt(document.getElementById('ori_content_index').value);
+                var current_content_index = parseInt(document.getElementById('current_content_index').value);
+
+                for(var i = ori_content_index; i <= current_content_index; i++){
+                    $("#content"+i).css('display', 'none');
+                    document.getElementById('content_index').value = ori_content_index;
+                }
+            }
+        </script>
+        <script type="text/x-mathjax-config">
+          //
+          //  The document is hidden until MathJax is finished, then
+          //   this function runs, making it visible again.
+          //
+          MathJax.Hub.Config({
+            tex2jax: {
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+          });
+          MathJax.Hub.Queue(function() {
+            $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+                return(elem.SourceElement());
+            }).parent().addClass('has-jax');
+          });
+        </script>
+        <script type="text/javascript" src="js/MathJax/MathJax.js?config=AM_HTMLorMML-full&delayStartupUntil=configured"></script>
+    </body>
+</html>
