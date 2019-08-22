@@ -92,11 +92,10 @@ var app = {
                         document.getElementById('mathFunctionContainer').appendChild(contentSeparator);
                      }
                      titles[titleIndex++] = lines[line].replace(/(\r\n|\n|\r|＃)/gm, "");
-                     var title = document.createElement("input");
-                     title.setAttribute("type", "hidden");
-                     title.setAttribute("name", "title"+titleIndex);
+                     var title = document.createElement("div");
                      title.setAttribute("id", "title"+titleIndex);
-                     title.setAttribute("value", titles[titleIndex-1]);
+                     title.setAttribute("style", "display:none");
+                     title.innerHTML = titles[titleIndex-1];
                      document.getElementById('mathFunctionContainer').appendChild(title);
                   }
                   else if(lines[line].trim() != ''){
@@ -125,7 +124,7 @@ var app = {
                 document.getElementById('next_title_index').value = next_index_arr[0];
                 document.getElementById('next_content_index').value = next_index_arr[1];
 
-                document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title1').value;
+                document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title1').innerHTML;
                 document.getElementById('content_index').value = 1;
                 document.getElementById('ori_content_index').value = 1;
 

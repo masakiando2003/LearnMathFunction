@@ -55,6 +55,11 @@
                     <div class="col-sm-2"><button class="btn btn-primary" id="btnReset" onclick="HideMathContent(); return false;">やり直す</button></div>
                     <div class="col-sm-2">&nbsp;</div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-2 offset">&nbsp;</div>
+                    <div class="col-sm-2"><button class="btn btn-primary" id="btnQuit" onclick="QuitApp(); return false;">終了</button></div>
+                    <div class="col-sm-2">&nbsp;</div>
+                </div>
             </div>
             <input type="hidden" id="contentSeparatorIndex" value="1" />
             <input type="hidden" id="totalTitleCount" />
@@ -74,6 +79,7 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript">
             function OnPreviousButtonClicked(){
+                $("#btnContinue").css('visibility', 'visible');
                 var prevContentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value) - 1;
                 var contentSeparatorArr = document.getElementById('contentSeparator'+prevContentSeparatorIndex).value.split(", ", 2);
                 var prevContentSeparatorArr;
@@ -126,7 +132,7 @@
 
                     var current_title_index = parseInt(document.getElementById('current_title_index').value);
 
-                    document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).value;
+                    document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).innerHTML;
                     document.getElementById('contentSeparatorIndex').value = prevContentSeparatorIndex;
                 }
                 else {
@@ -135,6 +141,7 @@
             }
 
             function OnNextButtonClicked(){
+                $("#btnContinue").css('visibility', 'visible');
                 var totalTitleCount = parseInt(document.getElementById('totalTitleCount').value);
                 var nextContentSeparatorIndex = parseInt(document.getElementById('contentSeparatorIndex').value) + 1;
                 var contentSeparatorArr = document.getElementById('contentSeparator'+nextContentSeparatorIndex).value.split(", ", 2);
@@ -182,7 +189,7 @@
 
                     var current_title_index = parseInt(document.getElementById('current_title_index').value);
 
-                    document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).value;
+                    document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title'+current_title_index).innerHTML;
                     document.getElementById('contentSeparatorIndex').value = nextContentSeparatorIndex;
                 }
                 else {
@@ -197,17 +204,25 @@
                 if(content_index <= current_content_index){
                     $("#content"+content_index).fadeIn();
                     document.getElementById('content_index').value++;
+                    if(content_index == current_content_index){
+                        $("#btnContinue").css('visibility', 'hidden');
+                    }
                 }
             }
 
             function HideMathContent(){
                 var ori_content_index = parseInt(document.getElementById('ori_content_index').value);
                 var current_content_index = parseInt(document.getElementById('current_content_index').value);
+                $("#btnContinue").css('visibility', 'visible');
 
                 for(var i = ori_content_index; i <= current_content_index; i++){
                     $("#content"+i).css('display', 'none');
                     document.getElementById('content_index').value = ori_content_index;
                 }
+            }
+
+            function QuitApp(){
+                navigator.app.exitApp();
             }
         </script>
         <script type="text/x-mathjax-config">
