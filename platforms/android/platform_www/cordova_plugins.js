@@ -188,11 +188,38 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
         "cordova"
       ],
       "runs": true
+    },
+    {
+      "id": "cordova-plugin-chooser.Chooser",
+      "file": "plugins/cordova-plugin-chooser/www/chooser.js",
+      "pluginId": "cordova-plugin-chooser",
+      "clobbers": [
+        "chooser"
+      ]
+    },
+    {
+      "id": "com.outsystems.plugins.filechooser.FileChooser",
+      "file": "plugins/com.outsystems.plugins.filechooser/www/FileChooser.js",
+      "pluginId": "com.outsystems.plugins.filechooser",
+      "clobbers": [
+        "FileChooser"
+      ]
+    },
+    {
+      "id": "cordova-plugin-filechooser.FileChooser",
+      "file": "plugins/cordova-plugin-filechooser/www/fileChooser.js",
+      "pluginId": "cordova-plugin-filechooser",
+      "clobbers": [
+        "fileChooser"
+      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-whitelist": "1.3.4",
     "cordova-plugin-dialogs": "2.0.2",
-    "cordova-plugin-file": "6.0.2"
+    "cordova-plugin-file": "6.0.2",
+    "cordova-plugin-chooser": "1.2.5",
+    "com.outsystems.plugins.filechooser": "1.0.2",
+    "cordova-plugin-filechooser": "1.0.1"
   };
 });

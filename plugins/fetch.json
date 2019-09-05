@@ -18,7 +18,39 @@
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@6.0.2"
+      "id": "cordova-plugin-file@^6.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-chooser": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-chooser"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-add-swift-support": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-add-swift-support@*"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "com.outsystems.plugins.filechooser": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/OutSystems/Cordova-Plugin-FileChooser.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-filechooser": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/aitoraznar/cordova-filechooser.git"
     },
     "is_top_level": true,
     "variables": {}

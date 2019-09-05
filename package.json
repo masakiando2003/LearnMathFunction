@@ -13,10 +13,15 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "dependencies": {
+    "com.outsystems.plugins.filechooser": "git+https://github.com/OutSystems/Cordova-Plugin-FileChooser.git",
     "cordova-android": "^8.0.0",
     "cordova-ios": "^5.0.1",
+    "cordova-plugin-add-swift-support": "^2.0.2",
+    "cordova-plugin-chooser": "^1.2.5",
     "cordova-plugin-dialogs": "^2.0.2",
-    "cordova-plugin-file": "^6.0.2"
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-file-chooser": "git+https://github.com/caixiangsap/filechooser.git",
+    "cordova-plugin-filechooser": "git+https://github.com/aitoraznar/cordova-filechooser.git"
   },
   "devDependencies": {
     "cordova-plugin-whitelist": "^1.3.4"
@@ -25,7 +30,10 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-dialogs": {},
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "cordova-plugin-chooser": {},
+      "com.outsystems.plugins.filechooser": {},
+      "cordova-plugin-filechooser": {}
     },
     "platforms": [
       "ios",

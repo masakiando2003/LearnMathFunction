@@ -15,6 +15,15 @@
     },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
+    },
+    "cordova-plugin-chooser": {
+      "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
+    },
+    "com.outsystems.plugins.filechooser": {
+      "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
+    },
+    "cordova-plugin-filechooser": {
+      "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
     }
   },
   "dependent_plugins": {}

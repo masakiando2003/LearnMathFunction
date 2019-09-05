@@ -29,4 +29,13 @@
         <param name="onload" value="true" />
     </feature>
     <allow-navigation href="cdvfile:*" />
+    <feature name="Chooser">
+        <param name="android-package" value="com.cyph.cordova.Chooser" />
+    </feature>
+    <feature name="FileChooser">
+        <param name="android-package" value="com.outsystems.plugins.filechooser.FileChooser" />
+    </feature>
+    <feature name="FileChooser">
+        <param name="android-package" value="com.megster.cordova.FileChooser" />
+    </feature>
 </widget>

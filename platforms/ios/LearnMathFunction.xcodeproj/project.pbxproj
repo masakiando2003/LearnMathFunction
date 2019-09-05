@@ -19,6 +19,7 @@
 		18E9C75B16F84351ACE86EF6 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D7D05794AA0429B930E8E86 /* CDVFile.m */; };
 		6E8EF94974D742BA9C61B3EF /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC662717596400192698FDA /* CDVLocalFilesystem.m */; };
 		4515BC7A92BA418A947CAE97 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC0A11D8064D92930657E4 /* CDVAssetLibraryFilesystem.m */; };
+		695B4F7E186A48D4BD822661 /* Chooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1619885C77F4430FADA6C623 /* Chooser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		3EC11DB5DE754AFF8883192F /* CDVFile.h */ = {isa = PBXFileReference; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		EC26EC96E50D46C3894D49F9 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		DDB90FDE9B8248B1841BE1F3 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		1619885C77F4430FADA6C623 /* Chooser.swift */ = {isa = PBXFileReference; name = "Chooser.swift"; path = "cordova-plugin-chooser/Chooser.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				3EC11DB5DE754AFF8883192F /* CDVFile.h */,
 				EC26EC96E50D46C3894D49F9 /* CDVLocalFilesystem.h */,
 				DDB90FDE9B8248B1841BE1F3 /* CDVAssetLibraryFilesystem.h */,
+				1619885C77F4430FADA6C623 /* Chooser.swift */,
 			);
 			name = Plugins;
 			path = "LearnMathFunction/Plugins";
@@ -320,6 +323,7 @@
 				18E9C75B16F84351ACE86EF6 /* CDVFile.m in Sources */,
 				6E8EF94974D742BA9C61B3EF /* CDVLocalFilesystem.m in Sources */,
 				4515BC7A92BA418A947CAE97 /* CDVAssetLibraryFilesystem.m in Sources */,
+				695B4F7E186A48D4BD822661 /* Chooser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +360,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ac.dhw.learnmathfunction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -379,6 +387,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ac.dhw.learnmathfunction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -421,6 +432,10 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ac.dhw.learnmathfunction;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -461,6 +476,9 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ac.dhw.learnmathfunction;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

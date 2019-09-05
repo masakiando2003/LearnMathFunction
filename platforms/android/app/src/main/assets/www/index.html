@@ -56,9 +56,9 @@
                     <div class="col-sm-2">&nbsp;</div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2 offset">&nbsp;</div>
-                    <div class="col-sm-2"><button class="btn btn-primary" id="btnQuit" onclick="QuitApp(); return false;">終了</button></div>
+                    <div class="col-sm-4"><button class="btn btn-primary" id="btnRead" onclick="ReadFile();">ファイル選択</button></div>
                     <div class="col-sm-2">&nbsp;</div>
+                    <div class="col-sm-2"><button class="btn btn-danger" id="btnQuit" onclick="QuitApp(); return false;">終了</button></div>
                 </div>
             </div>
             <input type="hidden" id="contentSeparatorIndex" value="1" />
@@ -219,6 +219,30 @@
                     $("#content"+i).css('display', 'none');
                     document.getElementById('content_index').value = ori_content_index;
                 }
+            }
+
+            var success = function (data) {
+                console.log("FILE DATA: "+data);
+                alert('Read File Test');
+            }
+
+            var fail = function (error) {
+                console.log(error);
+            }
+
+            var options = {"accept":"*","capture":true};
+
+
+            function ReadFile(){
+                window.filechooser.open(options,success,fail);
+            }
+
+            function successCallback(uri){
+                alert('URI: '+uri);
+            }
+
+            function failureCallback(){
+                alert('Failure!');
             }
 
             function QuitApp(){
