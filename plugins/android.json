@@ -24,6 +24,12 @@
     },
     "cordova-plugin-filechooser": {
       "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
+    },
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
     }
   },
   "dependent_plugins": {}

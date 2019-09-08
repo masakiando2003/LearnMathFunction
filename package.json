@@ -18,10 +18,12 @@
     "cordova-ios": "^5.0.1",
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-chooser": "^1.2.5",
+    "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-chooser": "git+https://github.com/caixiangsap/filechooser.git",
-    "cordova-plugin-filechooser": "git+https://github.com/aitoraznar/cordova-filechooser.git"
+    "cordova-plugin-filechooser": "git+https://github.com/aitoraznar/cordova-filechooser.git",
+    "cordova-plugin-media": "^5.0.3"
   },
   "devDependencies": {
     "cordova-plugin-whitelist": "^1.3.4"
@@ -33,7 +35,11 @@
       "cordova-plugin-file": {},
       "cordova-plugin-chooser": {},
       "com.outsystems.plugins.filechooser": {},
-      "cordova-plugin-filechooser": {}
+      "cordova-plugin-filechooser": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-media": {
+        "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
+      }
     },
     "platforms": [
       "ios",

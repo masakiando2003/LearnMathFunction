@@ -48,5 +48,15 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We access your camera to take pictures</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We access your microphone to capture sound</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We access your photo library to load or save pictures</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We access your location to improve your experience</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We access your location to improve your experience</string>
 </dict>
 </plist>

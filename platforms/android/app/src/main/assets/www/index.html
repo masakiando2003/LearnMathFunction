@@ -56,7 +56,11 @@
                     <div class="col-sm-2">&nbsp;</div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4"><button class="btn btn-primary" id="btnRead" onclick="ReadFile();">ファイル選択</button></div>
+                    <div class="col-sm-4">
+                        <span class="btn btn-primary" onclick="document.getElementById('btnChooseFile').click();">ファイル選択
+                                <input type="file" id="btnChooseFile" name="choose_file" accept="text/plain" style="display:none" onchange="ReadFile();" />
+                        </span>
+                    </div>
                     <div class="col-sm-2">&nbsp;</div>
                     <div class="col-sm-2"><button class="btn btn-danger" id="btnQuit" onclick="QuitApp(); return false;">終了</button></div>
                 </div>
@@ -221,28 +225,66 @@
                 }
             }
 
-            var success = function (data) {
-                console.log("FILE DATA: "+data);
-                alert('Read File Test');
+            function UpdateReadFileContent (data) {
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+
+                //var absPath = "file:///storage/emulated/0/";
+                var absPath = cordova.file.externalRootDirectory;
+                var fileDir = cordova.file.externalDataDirectory.replace(cordova.file.externalRootDirectory, '');
+                var fileName = "last_read_file.txt";
+                var filePath = fileDir + fileName;
+
+                    fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
+                        writeFile(fileEntry, data);
+                    }, function(err) {});
+                }, function(err) {});
             }
-
-            var fail = function (error) {
-                console.log(error);
-            }
-
-            var options = {"accept":"*","capture":true};
-
 
             function ReadFile(){
-                window.filechooser.open(options,success,fail);
+                var file = document.getElementById('btnChooseFile').files[0];
+                var reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = function (evt) {
+                    console.log("File Content: "+evt.target.result);
+                    UpdateReadFileContent(evt.target.result);
+                }
+                reader.onerror = function (evt) {
+                    alert('ファイル読込が失敗しました。もう一度ファイルを選択してください。');
+                }
             }
 
-            function successCallback(uri){
-                alert('URI: '+uri);
+            function writeFile(fileEntry, data) {
+                var log = data;
+                // Create a FileWriter object for our FileEntry (log.txt).
+                fileEntry.createWriter(function (fileWriter) {
+
+                    fileWriter.onwriteend = function() {
+                        console.log("Successful file write...");
+                        readFile(fileEntry);
+                    };
+
+                    fileWriter.onerror = function (e) {
+                        console.log("Failed file write: " + e.toString());
+                    };
+
+		            var blob = new Blob([log], {type:'text/plain'});
+
+                    fileWriter.write(blob);
+                });
             }
 
-            function failureCallback(){
-                alert('Failure!');
+            function readFile(fileEntry) {
+                fileEntry.file(function (file) {
+                    var reader = new FileReader();
+
+                    reader.onloadend = function() {
+                        console.log("Successful file read: " + this.result);
+                        window.location.reload(true);
+                    };
+
+                    reader.readAsText(file);
+
+                }, function(err) {});
             }
 
             function QuitApp(){

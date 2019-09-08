@@ -19,6 +19,18 @@
             {
               "xml": "<feature name=\"Chooser\"><param name=\"ios-package\" value=\"Chooser\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Media\"><param name=\"ios-package\" value=\"CDVSound\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"KeepAVAudioSessionAlwaysActive\" value=\"NO\" />",
+              "count": 1
             }
           ]
         }
@@ -79,6 +91,13 @@
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-filechooser": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-media": {
+      "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO",
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -288,6 +307,30 @@
       "clobbers": [
         "fileChooser"
       ]
+    },
+    {
+      "id": "cordova-plugin-device.device",
+      "file": "plugins/cordova-plugin-device/www/device.js",
+      "pluginId": "cordova-plugin-device",
+      "clobbers": [
+        "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-media.MediaError",
+      "file": "plugins/cordova-plugin-media/www/MediaError.js",
+      "pluginId": "cordova-plugin-media",
+      "clobbers": [
+        "window.MediaError"
+      ]
+    },
+    {
+      "id": "cordova-plugin-media.Media",
+      "file": "plugins/cordova-plugin-media/www/Media.js",
+      "pluginId": "cordova-plugin-media",
+      "clobbers": [
+        "window.Media"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -297,6 +340,8 @@
     "cordova-plugin-add-swift-support": "2.0.2",
     "cordova-plugin-chooser": "1.2.5",
     "com.outsystems.plugins.filechooser": "1.0.2",
-    "cordova-plugin-filechooser": "1.0.1"
+    "cordova-plugin-filechooser": "1.0.1",
+    "cordova-plugin-device": "2.0.3",
+    "cordova-plugin-media": "5.0.3"
   }
 }

@@ -23,6 +23,14 @@
             {
               "xml": "<allow-navigation href=\"cdvfile:*\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
+              "count": 1
             }
           ],
           "/widget": [
@@ -42,6 +50,18 @@
           "/*": [
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+              "count": 2
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
               "count": 1
             }
           ],
@@ -92,6 +112,12 @@
       "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
     },
     "cordova-plugin-filechooser": {
+      "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
+    },
+    "cordova-plugin-media": {
       "PACKAGE_NAME": "jp.ac.dhw.learnmathfunction"
     }
   },
@@ -309,6 +335,30 @@
       "clobbers": [
         "fileChooser"
       ]
+    },
+    {
+      "id": "cordova-plugin-device.device",
+      "file": "plugins/cordova-plugin-device/www/device.js",
+      "pluginId": "cordova-plugin-device",
+      "clobbers": [
+        "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-media.MediaError",
+      "file": "plugins/cordova-plugin-media/www/MediaError.js",
+      "pluginId": "cordova-plugin-media",
+      "clobbers": [
+        "window.MediaError"
+      ]
+    },
+    {
+      "id": "cordova-plugin-media.Media",
+      "file": "plugins/cordova-plugin-media/www/Media.js",
+      "pluginId": "cordova-plugin-media",
+      "clobbers": [
+        "window.Media"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -317,6 +367,8 @@
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-chooser": "1.2.5",
     "com.outsystems.plugins.filechooser": "1.0.2",
-    "cordova-plugin-filechooser": "1.0.1"
+    "cordova-plugin-filechooser": "1.0.1",
+    "cordova-plugin-device": "2.0.3",
+    "cordova-plugin-media": "5.0.3"
   }
 }

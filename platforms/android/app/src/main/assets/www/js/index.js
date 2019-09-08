@@ -47,98 +47,188 @@ var app = {
     },
 
     readDataFile: function () {
-       console.log(cordova.file.applicationDirectory);
-       	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory, function(f) {
-       		console.dir(f);
-       	}, this.fail);
 
-       	//This alias is a read-only pointer to the app itself
-       	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/math_function.txt", this.gotFile, this.fail);
+        var absPath = cordova.file.externalRootDirectory;
+        var fileDir = cordova.file.externalDataDirectory.replace(cordova.file.externalRootDirectory, '');
+        var fileName = "last_read_file.txt";
+        var filePath = fileDir + fileName;
+
+        //window.resolveLocalFileSystemURL(filePath, this.gotFile, this.readDataFileFailed);
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+            fs.root.getFile(filePath, { create: false, exclusive: false },
+                function (fileEntry) {
+                    fileEntry.file(function(file) {
+                    var reader = new FileReader();
+
+                    reader.onloadend = function(e) {
+                        //console.log("Text is: "+this.result);
+                        //document.querySelector("#textArea").innerHTML = this.result;
+
+                        var titles = new Array();
+                        var contents = new Array();
+                        var contentSeparators = new Array();
+                        var titleIndex = 0;
+                        var contentIndex = 0;
+                        var contentSeparatorIndex = 0;
+
+                        var lines = this.result.split('\n');
+                        for(var line = 0; line < lines.length; line++){
+                          //console.log(lines[line]);
+                          if(lines[line].match(/(^＃|[^&]＃)/gi)){
+                             if(titleIndex > 0){
+                                //console.log("Indexes: "+titleIndex+", "+contentIndex);
+                                contentSeparators[contentSeparatorIndex++] = titleIndex.toString()+", "+contentIndex.toString();
+                                var contentSeparator = document.createElement("input");
+                                contentSeparator.setAttribute("type", "hidden");
+                                contentSeparator.setAttribute("name", "contentSeparator"+contentSeparatorIndex);
+                                contentSeparator.setAttribute("id", "contentSeparator"+contentSeparatorIndex);
+                                contentSeparator.setAttribute("value", contentSeparators[contentSeparatorIndex-1]);
+                                document.getElementById('mathFunctionContainer').appendChild(contentSeparator);
+                             }
+                             titles[titleIndex++] = lines[line].replace(/(\r\n|\n|\r|＃)/gm, "");
+                             var title = document.createElement("div");
+                             title.setAttribute("id", "title"+titleIndex);
+                             title.setAttribute("style", "display:none");
+                             title.innerHTML = titles[titleIndex-1];
+                             document.getElementById('mathFunctionContainer').appendChild(title);
+                          }
+                          else if(lines[line].trim() != ''){
+                            contents[contentIndex++] = lines[line].replace(/(\r\n|\n|\r)/gm, "");
+                            var content = document.createElement("div");
+                            content.setAttribute("id", "content"+contentIndex);
+                            content.setAttribute("style", "display:none");
+                            content.innerHTML = contents[contentIndex-1];
+                            document.getElementById('mathFunctionContent').appendChild(content);
+                          }
+                        }
+
+                        console.log("Titles: "+JSON.stringify(titles));
+                        console.log("Contents: "+JSON.stringify(contents));
+                        console.log("Content Separators: "+JSON.stringify(contentSeparators));
+
+                        if(contentSeparators.length > 0){
+                            var previous_index_arr = contentSeparators[0].split(",", 2);
+                            document.getElementById('previous_title_index').value = previous_index_arr[0];
+                            document.getElementById('previous_content_index').value = previous_index_arr[1];
+
+                            var current_index_arr = previous_index_arr;
+                            document.getElementById('current_title_index').value = current_index_arr[0];
+                            document.getElementById('current_content_index').value = current_index_arr[1];
+
+                            var next_index_arr = contentSeparators[1].split(",", 2);
+                            document.getElementById('next_title_index').value = next_index_arr[0];
+                            document.getElementById('next_content_index').value = next_index_arr[1];
+                        }
+                        else{
+                            document.getElementById('btnPrevious').style.display = "none";
+                            document.getElementById('btnNext').style.display = "none";
+
+                            document.getElementById('current_title_index').value = 1;
+                            document.getElementById('current_content_index').value = contents.length;
+                        }
+
+                        document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title1').innerHTML;
+                        document.getElementById('content_index').value = 1;
+                        document.getElementById('ori_content_index').value = 1;
+
+                        document.getElementById('btnPrevious').style.visibility = 'hidden';
+
+                        document.getElementById('totalTitleCount').value = titleIndex - 1;
+                        document.getElementById('totalContentCount').value = contentIndex - 1;
+                    }
+
+                    reader.onerror = this.readDataFileFailed;
+
+                    reader.readAsText(file);
+                    });
+
+                MathJax.Hub.Configured();
+            },
+            function (e){
+                var defaultFilePath = cordova.file.applicationDirectory + "www/math_function.txt";
+                window.resolveLocalFileSystemURL(defaultFilePath,
+                    function (fileEntry) {
+                        fileEntry.file(function(file) {
+                            var reader = new FileReader();
+
+                            reader.onloadend = function(e) {
+                                //console.log("Text is: "+this.result);
+                                //document.querySelector("#textArea").innerHTML = this.result;
+
+                                var titles = new Array();
+                                var contents = new Array();
+                                var contentSeparators = new Array();
+                                var titleIndex = 0;
+                                var contentIndex = 0;
+                                var contentSeparatorIndex = 0;
+
+                                var lines = this.result.split('\n');
+                                for(var line = 0; line < lines.length; line++){
+                                  //console.log(lines[line]);
+                                  if(lines[line].match(/(^＃|[^&]＃)/gi)){
+                                     if(titleIndex > 0){
+                                        //console.log("Indexes: "+titleIndex+", "+contentIndex);
+                                        contentSeparators[contentSeparatorIndex++] = titleIndex.toString()+", "+contentIndex.toString();
+                                        var contentSeparator = document.createElement("input");
+                                        contentSeparator.setAttribute("type", "hidden");
+                                        contentSeparator.setAttribute("name", "contentSeparator"+contentSeparatorIndex);
+                                        contentSeparator.setAttribute("id", "contentSeparator"+contentSeparatorIndex);
+                                        contentSeparator.setAttribute("value", contentSeparators[contentSeparatorIndex-1]);
+                                        document.getElementById('mathFunctionContainer').appendChild(contentSeparator);
+                                     }
+                                     titles[titleIndex++] = lines[line].replace(/(\r\n|\n|\r|＃)/gm, "");
+                                     var title = document.createElement("div");
+                                     title.setAttribute("id", "title"+titleIndex);
+                                     title.setAttribute("style", "display:none");
+                                     title.innerHTML = titles[titleIndex-1];
+                                     document.getElementById('mathFunctionContainer').appendChild(title);
+                                  }
+                                  else if(lines[line].trim() != ''){
+                                    contents[contentIndex++] = lines[line].replace(/(\r\n|\n|\r)/gm, "");
+                                    var content = document.createElement("div");
+                                    content.setAttribute("id", "content"+contentIndex);
+                                    content.setAttribute("style", "display:none");
+                                    content.innerHTML = contents[contentIndex-1];
+                                    document.getElementById('mathFunctionContent').appendChild(content);
+                                  }
+                                }
+
+                                console.log("Titles: "+JSON.stringify(titles));
+                                console.log("Contents: "+JSON.stringify(contents));
+                                console.log("Content Separators: "+JSON.stringify(contentSeparators));
+
+                                var previous_index_arr = contentSeparators[0].split(",", 2);
+                                document.getElementById('previous_title_index').value = previous_index_arr[0];
+                                document.getElementById('previous_content_index').value = previous_index_arr[1];
+
+                                var current_index_arr = previous_index_arr;
+                                document.getElementById('current_title_index').value = current_index_arr[0];
+                                document.getElementById('current_content_index').value = current_index_arr[1];
+
+                                var next_index_arr = contentSeparators[1].split(",", 2);
+                                document.getElementById('next_title_index').value = next_index_arr[0];
+                                document.getElementById('next_content_index').value = next_index_arr[1];
+
+                                document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title1').innerHTML;
+                                document.getElementById('content_index').value = 1;
+                                document.getElementById('ori_content_index').value = 1;
+
+                                document.getElementById('btnPrevious').style.visibility = 'hidden';
+
+                                document.getElementById('totalTitleCount').value = titleIndex - 1;
+                                document.getElementById('totalContentCount').value = contentIndex - 1;
+                            }
+
+                            reader.readAsText(file);
+                        });
+
+                        MathJax.Hub.Configured();
+                    },
+                    function (e) { alert('readDataFileFailed'); }
+                );
+            });
+        }, function(err) {});
     },
-
-     fail: function(e) {
-     	console.log("FileSystem Error");
-     	console.dir(e);
-     },
-
-     gotFile: function(fileEntry) {
-
-     	fileEntry.file(function(file) {
-     		var reader = new FileReader();
-
-     		reader.onloadend = function(e) {
-     			//console.log("Text is: "+this.result);
-     			//document.querySelector("#textArea").innerHTML = this.result;
-
-                var titles = new Array();
-                var contents = new Array();
-                var contentSeparators = new Array();
-                var titleIndex = 0;
-                var contentIndex = 0;
-                var contentSeparatorIndex = 0;
-
-     			var lines = this.result.split('\n');
-                for(var line = 0; line < lines.length; line++){
-                  //console.log(lines[line]);
-                  if(lines[line].match(/(^＃|[^&]＃)/gi)){
-                     if(titleIndex > 0){
-                        //console.log("Indexes: "+titleIndex+", "+contentIndex);
-                        contentSeparators[contentSeparatorIndex++] = titleIndex.toString()+", "+contentIndex.toString();
-                        var contentSeparator = document.createElement("input");
-                        contentSeparator.setAttribute("type", "hidden");
-                        contentSeparator.setAttribute("name", "contentSeparator"+contentSeparatorIndex);
-                        contentSeparator.setAttribute("id", "contentSeparator"+contentSeparatorIndex);
-                        contentSeparator.setAttribute("value", contentSeparators[contentSeparatorIndex-1]);
-                        document.getElementById('mathFunctionContainer').appendChild(contentSeparator);
-                     }
-                     titles[titleIndex++] = lines[line].replace(/(\r\n|\n|\r|＃)/gm, "");
-                     var title = document.createElement("div");
-                     title.setAttribute("id", "title"+titleIndex);
-                     title.setAttribute("style", "display:none");
-                     title.innerHTML = titles[titleIndex-1];
-                     document.getElementById('mathFunctionContainer').appendChild(title);
-                  }
-                  else if(lines[line].trim() != ''){
-                    contents[contentIndex++] = lines[line].replace(/(\r\n|\n|\r)/gm, "");
-                    var content = document.createElement("div");
-                    content.setAttribute("id", "content"+contentIndex);
-                    content.setAttribute("style", "display:none");
-                    content.innerHTML = contents[contentIndex-1];
-                    document.getElementById('mathFunctionContent').appendChild(content);
-                  }
-                }
-
-                console.log("Titles: "+JSON.stringify(titles));
-                console.log("Contents: "+JSON.stringify(contents));
-                console.log("Content Separators: "+JSON.stringify(contentSeparators));
-
-                var previous_index_arr = contentSeparators[0].split(",", 2);
-                document.getElementById('previous_title_index').value = previous_index_arr[0];
-                document.getElementById('previous_content_index').value = previous_index_arr[1];
-
-                var current_index_arr = previous_index_arr;
-                document.getElementById('current_title_index').value = current_index_arr[0];
-                document.getElementById('current_content_index').value = current_index_arr[1];
-
-                var next_index_arr = contentSeparators[1].split(",", 2);
-                document.getElementById('next_title_index').value = next_index_arr[0];
-                document.getElementById('next_content_index').value = next_index_arr[1];
-
-                document.getElementById('mathFunctionTitle').innerHTML = document.getElementById('title1').innerHTML;
-                document.getElementById('content_index').value = 1;
-                document.getElementById('ori_content_index').value = 1;
-
-                document.getElementById('btnPrevious').style.visibility = 'hidden';
-
-                document.getElementById('totalTitleCount').value = titleIndex - 1;
-                document.getElementById('totalContentCount').value = contentIndex - 1;
-     		}
-
-     		reader.readAsText(file);
-     	});
-
-        MathJax.Hub.Configured();
-     }
 };
 
 app.initialize();
