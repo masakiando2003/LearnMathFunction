@@ -298,7 +298,9 @@
           //
           MathJax.Hub.Config({
             tex2jax: {
-                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                processEscapes: true,
+                ignoreClass: "tex2jax_ignore|dno"
             }
           });
           MathJax.Hub.Queue(function() {
@@ -307,6 +309,7 @@
             }).parent().addClass('has-jax');
           });
         </script>
-        <script type="text/javascript" src="js/MathJax/MathJax.js?config=AM_HTMLorMML-full&delayStartupUntil=configured"></script>
+       <!-- <script type="text/javascript" src="js/MathJax/MathJax.js?config=AM_HTMLorMML-full&delayStartupUntil=configured"></script>-->
+        <script type="text/javascript" src="js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script>
     </body>
 </html>

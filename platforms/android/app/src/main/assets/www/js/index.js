@@ -61,7 +61,7 @@ var app = {
                     var reader = new FileReader();
 
                     reader.onloadend = function(e) {
-                        //console.log("Text is: "+this.result);
+                        console.log("Custom File Text is: "+this.result);
                         //document.querySelector("#textArea").innerHTML = this.result;
 
                         var titles = new Array();
@@ -142,17 +142,26 @@ var app = {
                     reader.readAsText(file);
                     });
 
+                MathJax.Hub.Config({
+                  tex2jax: {
+                    inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+                    processEscapes: true,
+                    ignoreClass: "tex2jax_ignore|dno"
+                  }
+                });
+
                 MathJax.Hub.Configured();
             },
             function (e){
-                var defaultFilePath = cordova.file.applicationDirectory + "www/math_function.txt";
+                //var defaultFilePath = cordova.file.applicationDirectory + "www/math_function.txt";
+                var defaultFilePath = cordova.file.applicationDirectory + "www/resource/math_function.txt";
                 window.resolveLocalFileSystemURL(defaultFilePath,
                     function (fileEntry) {
                         fileEntry.file(function(file) {
                             var reader = new FileReader();
 
                             reader.onloadend = function(e) {
-                                //console.log("Text is: "+this.result);
+                                console.log("Default File Text is: "+this.result);
                                 //document.querySelector("#textArea").innerHTML = this.result;
 
                                 var titles = new Array();
@@ -220,6 +229,15 @@ var app = {
                             }
 
                             reader.readAsText(file);
+                        });
+
+
+                        MathJax.Hub.Config({
+                          tex2jax: {
+                            inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+                            processEscapes: true,
+                            ignoreClass: "tex2jax_ignore|dno"
+                          }
                         });
 
                         MathJax.Hub.Configured();
