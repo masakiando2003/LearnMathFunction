@@ -14,8 +14,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "com.outsystems.plugins.filechooser": "git+https://github.com/OutSystems/Cordova-Plugin-FileChooser.git",
-    "cordova-android": "^8.0.0",
-    "cordova-ios": "^5.0.1",
+    "cordova-android": "^11.0.0",
+    "cordova-ios": "^6.3.0",
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-chooser": "^1.2.5",
     "cordova-plugin-device": "^2.0.3",
