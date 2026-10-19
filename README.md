@@ -11,7 +11,7 @@
 | フレームワーク | Apache Cordova（cordova-android 8 / cordova-ios 5） |
 | 言語 | HTML / CSS / JavaScript |
 | UI | Bootstrap 4.3.1、jQuery 3.4.1 |
-| 数式表示 | MathJax（`TeX-AMS-MML_HTMLorMML` 設定で LaTeX を描画） |
+| 数式表示 | MathJax 2.7.9（`TeX-AMS-MML_HTMLorMML` 設定で LaTeX を描画） |
 | Cordova プラグイン | cordova-plugin-file、cordova-plugin-dialogs、cordova-plugin-device、cordova-plugin-whitelist、ファイル選択系プラグイン（cordova-plugin-chooser など） |
 | 対象プラットフォーム | Android（iOS プラットフォームも追加済みですが、アプリ本体は Android 側のみ実装） |
 
@@ -62,12 +62,12 @@ LearnMathFunction/
             │   ├── index.js           # 起動処理・テキスト解析・MathJax 起動
             │   ├── jquery.min.js
             │   ├── bootstrap.min.js
-            │   └── MathJax/           # MathJax 本体（gitlink として登録）
+            │   └── MathJax/           # MathJax 2.7.9（必要なファイルのみ同梱）
             └── resource/
                 └── math_function.txt  # デフォルトの学習内容
 ```
 
-> **注意**：`js/MathJax` は `.gitmodules` のない gitlink として登録されているため、clone しても中身は空です。ビルド前に MathJax 2.x を別途配置する必要があります。
+> `js/MathJax` には MathJax 2.7.9 のうち、`TeX-AMS-MML_HTMLorMML` 設定・拡張機能・TeX Web フォント（woff）・英語／日本語ロケールのみを同梱しています（約7MB）。他の設定やフォントが必要な場合は `npm pack mathjax@2.7.9` で取得して追加してください。
 
 ### 開発時のルール
 - アプリ本体のソースは `platforms/android/app/src/main/assets/www/` を直接編集しています（ルートの `www/` は Cordova テンプレートのままです）
